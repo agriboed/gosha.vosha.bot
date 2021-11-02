@@ -40,7 +40,8 @@ if __name__ == "__main__":
     def get_audio(text):
         try:
             r = requests.get(
-                'http://nextup.com/ivona/php/nextup-polly/CreateSpeech/CreateSpeechGet3.php?voice=Maxim&language=ru-RU&text=' + text,
+                'http://nextup.com/ivona/php/nextup-polly/CreateSpeech/CreateSpeechGet3.php?voice=Maxim&language=ru'
+                '-RU&text=' + text,
                 proxies=get_random_proxy(), timeout=10)
 
             if r.status_code != 200:
