@@ -1,0 +1,5 @@
+python-dotenv==1.0.0
+pytelegrambotapi==4.10.0
+wheel==0.40.0
+Proxy-List-Scrapper==0.2.2
+openai==0.27.2
