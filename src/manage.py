@@ -19,13 +19,13 @@ env_path = os.path.join(dir_path, '../.env')
 dotenv.load_dotenv(env_path)
 
 logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 formatter = logging.Formatter('%(asctime)s [%(name)s] [%(levelname)s] %(message)s')
 
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(formatter)
-handler.setLevel(logging.DEBUG)
+handler.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 
@@ -37,10 +37,10 @@ class Telebot:
         self.bot = telebot.TeleBot(self.token)
 
     def run(self):
-        logger.debug('Starting telebot')
+        logger.info('Starting telebot')
 
         if not self.token:
-            logger.debug('No token found. Quit')
+            logger.info('No token found. Quit')
             exit(0)
 
         self.keyboard1 = telebot.types.ReplyKeyboardMarkup()
@@ -60,7 +60,7 @@ class Telebot:
 
         @bot.message_handler(content_types=['text'])
         def send_text(message):
-            logger.debug(f'Incoming: {message}')
+            logger.info(f'Incoming: {message}')
 
             if message.text.lower() == 'привет':
                 self.bot.send_sticker(message.chat.id,
@@ -81,7 +81,7 @@ class Telebot:
             else:
                 try:
                     response = openai.Completion.create(
-                        model="text-davinci-003",
+                        model="gpt-4",
                         prompt=message.text,
                         temperature=0,
                         max_tokens=1000,
@@ -95,11 +95,11 @@ class Telebot:
 
         @bot.message_handler(content_types=['sticker'])
         def sticker_id(message):
-            logger.debug(f'Incoming sticker: {message}')
+            logger.info(f'Incoming sticker: {message}')
 
         @bot.message_handler(content_types=['photo'])
         def send_photo(message):
-            logger.debug(f'Incoming photo: {message}')
+            logger.info(f'Incoming photo: {message}')
 
             self.bot.send_photo(message.chat.id, photo=open(os.path.join(data_path, 'photo.jpg'), 'rb'),
                                 reply_markup=telebot.types.ReplyKeyboardRemove())
