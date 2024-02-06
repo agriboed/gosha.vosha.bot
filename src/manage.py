@@ -81,7 +81,7 @@ class Telebot:
             else:
                 try:
                     response = openai.Completion.create(
-                        model="text-davinci-003",
+                        model="gpt-3.5-turbo-instruct",
                         prompt=message.text,
                         temperature=0,
                         max_tokens=1000,
